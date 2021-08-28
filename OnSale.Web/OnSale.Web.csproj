@@ -20,8 +20,4 @@
     <ProjectReference Include="..\OnSale.Common\OnSale.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Countries\" />
-  </ItemGroup>
-
 </Project>
