@@ -54,9 +54,30 @@ namespace OnSale.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Add(country);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                try
+                {
+
+                    _context.Add(country);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        ModelState.AddModelError(string.Empty, "There are a record with the same name.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
+                    }
+
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
+
             }
 
             return View(country);
@@ -108,6 +129,22 @@ namespace OnSale.Web.Controllers
 
                     
                 }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        ModelState.AddModelError(string.Empty, "There are a record with the same name.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
+                    }
+
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
                 return RedirectToAction("Index");
 
             }
@@ -128,8 +165,10 @@ namespace OnSale.Web.Controllers
             {
                 return NotFound();
             }
-
-            return View(country);
+            _context.Countries.Remove(country);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            //return View(country);
         }
 
         // POST: CountriesController/Delete/5
@@ -148,6 +187,10 @@ namespace OnSale.Web.Controllers
             await _context.SaveChangesAsync();
             //TempData["message"] = "The category has deleted successfully";
             return RedirectToAction(nameof(Index));
+        }
+        private bool CountryExists(int id)
+        {
+            return _context.Countries.Any(e => e.Id == id);
         }
     }
 }
