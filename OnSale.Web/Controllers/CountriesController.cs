@@ -131,7 +131,7 @@ namespace OnSale.Web.Controllers
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
-                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate") || dbUpdateException.InnerException.Message.Contains("duplicada"))
                     {
                         ModelState.AddModelError(string.Empty, "There are a record with the same name.");
                     }
@@ -145,7 +145,7 @@ namespace OnSale.Web.Controllers
                 {
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
-                return RedirectToAction("Index");
+               // return RedirectToAction("Index");
 
             }
   

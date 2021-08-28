@@ -8,16 +8,18 @@ using System.Threading.Tasks;
 
 namespace OnSale.Common.Entities
 {
-    public class Country
+    public class Department
     {
         public int Id { get; set; }
-        [Required]
+
         [MaxLength(50, ErrorMessage = "The field must contain less than 50 characters")]
+        [Required]
         public string Name { get; set; }
 
-        public ICollection<Department> Departments { get; set; } // relacion con tabla Departamentos
+        public ICollection<City> Cities { get; set; } // relacion con tabla ciudades
 
-        [DisplayName("Departments Number")]
-        public int DepartmentsNumber => Departments == null ? 0 : Departments.Count; // Propiedad de lectura para saber cuantos Departamentos tiene un pais
+        [DisplayName("Cities Number")] 
+        public int CitiesNumber => Cities == null ? 0 : Cities.Count; // Propiedad de lectura para saber cuantas cuidades tiene un departamento
     }
+
 }
