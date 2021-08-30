@@ -34,15 +34,15 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>
+                                <td width="50%">
                                     @Html.DisplayFor(modelItem => item.Name)
                                 </td>
-                                <td>
-                                    <img src="@item.ImageFullPath" style="width:100px;height:100px;max-width: 100%; height: auto;" />
+                                <td width="30%">
+                                    <img src="@item.ImageFullPath.ToLower()" style="width:100px;height:100px;max-width: 100%; height: auto;" />
                                 </td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
-                                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Delete</button>
                                 </td>
                             </tr>
                         }

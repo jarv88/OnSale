@@ -18,7 +18,7 @@ namespace OnSale.Common.Entities
         [Display(Name = "Image")]
         public string ImageFullPath => ImageId == Guid.Empty
             ? $"https://localhost:44336/images/noimage.png"
-            : $"https://onsale.blob.core.windows.net/products/{ImageId}";
+            : $"https://onsaleproject.blob.core.windows.net/products/{ImageId}";
     }
 
 }
